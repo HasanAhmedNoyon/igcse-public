@@ -72,7 +72,7 @@
     <div class="row">
         @for ($i = 0; $i < (count($lectures)>=3 ? 3 : count($lectures)); $i++)
             <div class="col-sm-12 col-md-4">
-                <div class="card">
+                <a href="{{ route('lecture', ['slug' => $lectures[$i]->slug]) }}" class="card lecture-card">
                     @if ($lectures[$i]->cover_type == 2)
                         <img class="card-img-top" src="{{ asset('storage/'.$lectures[$i]->file)}}" alt="Card image cap">
                     @elseif ($lectures[$i]->cover_type == 3)
@@ -91,11 +91,10 @@
                         <img class="card-img-top" src="{{ $thumbnail }}" alt="Card image cap">
                     @endif
                     <div class="card-body">
-                        <h5 class="card-title">{{ $lectures[$i]->title }}</h5>
-                        {{-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p> --}}
+                        <h5 class="card-title">{{ $lectures[$i]->chapter->title }}</h5>
+                        <p class="card-text">{{ $lectures[$i]->title }}</p>
                     </div>
-                </div>
+                </a>
             </div>
         @endfor
     </div>
@@ -107,7 +106,7 @@
     <div class="row">
         @for ($i = 3; $i < (count($lectures)<3 ? 3 : count($lectures)); $i++)
             <div class="col-sm-12 col-md-6">
-                <div class="card">
+                <a href="{{ route('lecture', ['slug' => $lectures[$i]->slug]) }}" class="card lecture-card">
                     @if ($lectures[$i]->cover_type == 2)
                         <img class="card-img-top" src="{{ asset('storage/'.$lectures[$i]->file)}}" alt="Card image cap">
                     @elseif ($lectures[$i]->cover_type == 3)
@@ -126,11 +125,10 @@
                         <img class="card-img-top" src="{{ $thumbnail }}" alt="Card image cap">
                     @endif
                     <div class="card-body">
-                        <h5 class="card-title">{{ $lectures[$i]->title }}</h5>
-                        {{-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p> --}}
+                        <h5 class="card-title">{{ $lectures[$i]->chapter->title }}</h5>
+                        <p class="card-text">{{ $lectures[$i]->title }}</p>
                     </div>
-                </div>
+                </a>
             </div>
         @endfor
     </div>

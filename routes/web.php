@@ -6,6 +6,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,21 @@ use App\Http\Controllers\Admin\SliderController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:cache');
+    return 'DONE'; //Return anything
+});
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return "Success";
+});
+
+Route::get('/migrate-link', function () {
+    Artisan::call('migrate');
+    return "Success";
+});
 
 Route::get('/', [PublicController::class, 'welcome'])->name('welcome');
 Route::post('/contact-us-submit', [PublicController::class, 'contact_us_submit'])->name('contact-us-submit');
@@ -137,5 +153,10 @@ Route::group(['as'=>'admin.','prefix'=>'admin','middleware'=>['auth:admin']], fu
     //-----------------------------Subscriber MANAGEMENT START----------------------------
     Route::resource('subscriber', 'Admin\SubscriberController');
     //-----------------------------Subscriber MANAGEMENT END-----------------------------
+
+    //-----------------------------Student MANAGEMENT START----------------------------
+    Route::get('students', [StudentController::class, 'index'])->name('students.index');
+    Route::get('students/details/{id}', [StudentController::class, 'details'])->name('students.details');
+    //-----------------------------Student MANAGEMENT END-----------------------------
 
 });

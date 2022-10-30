@@ -18,7 +18,7 @@
                         @foreach ($datas as $key => $data)
                             <div class="row p-3">
                                 <div class="col-sm-10">
-                                    <h1 class="col-form-label col-sm-12 pt-0">{{ $key }}. {{ $data->question }}</h1>
+                                    <h1 class="col-form-label col-sm-12 pt-0">{{ $key+1 }}. {{ $data->question }}</h1>
                                     @php
                                         $options = explode (",", $data->options); 
                                     @endphp

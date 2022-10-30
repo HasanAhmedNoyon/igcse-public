@@ -142,6 +142,16 @@ body h1,h2,h3,h4,h5,h6{
 .lecture-cover{
     position: relative;
 }
+.lecture-card{
+    color: #000;
+    transition:  .3s ease-in;
+}
+.lecture-card:hover{
+    text-decoration: none;
+    /* color: #000; */
+    -webkit-box-shadow: 1px 4px 13px 6px rgba(0,0,0,0.41); 
+    box-shadow: 1px 4px 13px 6px rgba(0,0,0,0.41);
+}
 .youtube-popup-btn{
     position: absolute;
     top: 50%;

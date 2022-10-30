@@ -11,7 +11,10 @@
             <div class="col-8">
                 <h6 class="text-center">Chapter: {{ $lecture->chapter->title }}</h6>
                 <p class="text-center">lecture: {{ $lecture->title }}</p>
-                <h6 class="text-center my-2">Your result is.</h6>
+                @php
+                    $got_percentage = round((($data->total_correct/($data->total_correct + $data->total_wrong))*100), 2);
+                @endphp
+                <h6 class="text-center my-2">You got {{ $got_percentage }}%.</h6>
                 <h6>Total Correct : {{ $data->total_correct }}</h6>
                 <h6>Total Wrong : {{ $data->total_wrong }}</h6>
             </div>

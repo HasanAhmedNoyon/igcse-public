@@ -18,6 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    @yield('header-links')
+    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 </head>
 <body>
     <div id="app">
@@ -79,5 +83,9 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+    @yield('footer-links')
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 </body>
 </html>

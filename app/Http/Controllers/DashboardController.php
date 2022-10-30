@@ -11,6 +11,7 @@ use App\Rules\MatchOldPassword;
 use App\Models\User;
 use App\Models\Lecture;
 use App\Models\MCQ;
+use App\Models\Result;
 use Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,13 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        return view('user.dashboard');
+        return view('user.dashboard',
+            [
+                'results' => Result::select('user_id', 'lecture_id', 'mcq_ids', 'total_correct', 'total_wrong')
+                            ->with('lecture')
+                            ->where('user_id', Auth::user()->id)->get()
+            ]
+        );
     }
 
     public function profile()
@@ -96,7 +103,13 @@ class DashboardController extends Controller
 
     public function counrse_info()
     {
-        return view('user.pages.counrse-info');
+        return view('user.pages.counrse-info',
+            [
+                'results' => Result::select('user_id', 'lecture_id', 'mcq_ids', 'total_correct', 'total_wrong')
+                            ->with('lecture')
+                            ->where('user_id', Auth::user()->id)->get()
+            ]
+        );
     }
 
     public function quiz($slug)
