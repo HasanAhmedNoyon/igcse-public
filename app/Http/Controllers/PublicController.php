@@ -74,6 +74,8 @@ class PublicController extends Controller
 
         $chapter = Chapter::first();
         $chapter_one_lecture_one = Lecture::where('chapter_id', $chapter->id)->first();
+        return redirect()->route('lecture', ['slug' => $chapter_one_lecture_one->slug])->with('message', 'State saved correctly!!!');
+        return redirect()->route('lecture', ['slug' => $chapter_one_lecture_one->slug])->with('error','Upps!! You have to complete first lecture first.');
         // return Lecture::where('id', '<', $lecture->id)->where('status', 1)->first();
         if(!Auth::check() && $lecture->chapter->id == $chapter->id && $chapter_one_lecture_one->id == $lecture->id){
             return view('website.pages.lecture',
@@ -87,7 +89,8 @@ class PublicController extends Controller
             return redirect()->route('login')->with('error','Upps!! You have to login first.');
         }else {
             $result_data = Result::where('user_id', Auth::user()->id)->first();
-            if (empty($result_data) && $chapter_one_lecture_one->id != $lecture->id) {
+            if (empty($result_data) || $chapter_one_lecture_one->id != $lecture->id) {
+                return "sfsf";
                 return redirect()->route('lecture', ['slug' => $chapter_one_lecture_one->slug])->with('error','Upps!! You have to complete first lecture first.');
             }else {
                 $result_lecture = Lecture::find($result_data->lecture_id);
