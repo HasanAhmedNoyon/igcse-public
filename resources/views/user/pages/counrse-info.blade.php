@@ -26,7 +26,7 @@
                                             $total_percentage_got += $got_percentage;
                                         @endphp
                                         <span class="card-text">Obtained Marks: {{ $got_percentage }}%</span> <br>
-                                        <span class="card-text">Status: <span class="badge bg-{{ $got_percentage >= 50 ? 'success' : 'danger' }}">{{ $got_percentage >= 50 ? 'Passed' : 'Failed' }}</span></span> <br>
+                                        <span class="card-text">Status: <span class="badge bg-{{ $result->status == 1? 'success' : 'danger' }}">{{ $result->status == 1? 'Passed' : 'Failed' }}</span></span> <br>
                                     </div>
                                 </div>
                             </div>

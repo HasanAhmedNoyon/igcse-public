@@ -8,6 +8,9 @@ use App\Models\Chapter;
 use App\Models\AboutUs;
 use App\Models\Lecture;
 use App\Models\Contact_us;
+use App\Models\Result;
+
+use Auth;
 
 class PublicController extends Controller
 {
@@ -68,14 +71,42 @@ class PublicController extends Controller
     public function lecture($slug)
     {
         $lecture = Lecture::where('slug', $slug)->with('chapter')->first();
+
+        $chapter = Chapter::first();
+        $chapter_one_lecture_one = Lecture::where('chapter_id', $chapter->id)->first();
         // return Lecture::where('id', '<', $lecture->id)->where('status', 1)->first();
-        return view('website.pages.lecture',
-            [
-                'data' => Lecture::where('slug', $slug)->with('chapter')->first(),
-                'previous' => Lecture::where('chapter_id', $lecture->chapter_id)->where('id', '<', $lecture->id)->where('status', 1)->first(),
-                'next' => Lecture::where('chapter_id', $lecture->chapter_id)->where('id', '>', $lecture->id)->where('status', 1)->first(),
-            ]
-        );
+        if(!Auth::check() && $lecture->chapter->id == $chapter->id && $chapter_one_lecture_one->id == $lecture->id){
+            return view('website.pages.lecture',
+                [
+                    'data' => Lecture::where('slug', $slug)->with('chapter')->first(),
+                    'previous' => Lecture::where('chapter_id', $lecture->chapter_id)->where('id', '<', $lecture->id)->where('status', 1)->first(),
+                    'next' => Lecture::where('chapter_id', $lecture->chapter_id)->where('id', '>', $lecture->id)->where('status', 1)->first(),
+                ]
+            );
+        }elseif (!Auth::check()) {
+            return redirect()->route('login')->with('error','Upps!! You have to login first.');
+        }else {
+            $result_data = Result::where('user_id', Auth::user()->id)->first();
+            if (empty($result_data) && $chapter_one_lecture_one->id != $lecture->id) {
+                return redirect()->route('lecture', ['slug' => $chapter_one_lecture_one->slug])->with('error','Upps!! You have to complete first lecture first.');
+            }else {
+                $result_lecture = Lecture::find($result_data->lecture_id);
+                $next_lecture = Lecture::where('chapter_id', $result_lecture->chapter_id)->where('id', '>', $result_lecture->id)->where('status', 1)->first();
+                if ($next_lecture->id != $lecture->id) {
+                    return redirect()->route('lecture', ['slug' => $next_lecture->slug])->with('error','Upps!! You have to complete previous lecture first.');
+                } else {
+                    return view('website.pages.lecture',
+                        [
+                            'data' => Lecture::where('slug', $slug)->with('chapter')->first(),
+                            'previous' => Lecture::where('chapter_id', $lecture->chapter_id)->where('id', '<', $lecture->id)->where('status', 1)->first(),
+                            'next' => Lecture::where('chapter_id', $lecture->chapter_id)->where('id', '>', $lecture->id)->where('status', 1)->first(),
+                        ]
+                    );
+                }
+                
+            }
+        }
+        
     }
 
     public function contact_us_submit(Request $request)

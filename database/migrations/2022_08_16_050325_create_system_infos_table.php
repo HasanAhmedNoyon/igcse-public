@@ -20,6 +20,10 @@ class CreateSystemInfosTable extends Migration
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('facebook_link')->nullable();
+            $table->string('twitter_link')->nullable();
+            $table->string('instagram_link')->nullable();
+            $table->double('passing_percentage', 16, 2)->nullable();
             $table->timestamps();
         });
     }

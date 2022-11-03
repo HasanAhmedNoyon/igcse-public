@@ -38,21 +38,23 @@
                         <div class="right-section">
                             <div class="card-deck text-center">
                                 <div class="card bg-success text-light">
-                                    <div class="card-body text-light">
-                                        <h5 class="card-title text-light">Chapter Completed</h5>
-                                        <p class="card-text num_of_chapter text-light"></p>
+                                    <div class="card-body text-white">
+                                        <h5 class="card-title text-white">Total Chapter</h5>
+                                        <p class="card-text num_of_chapter text-light text-white"></p>
                                     </div>
                                 </div>
                                 <div class="card bg-primary text-light">
-                                    <div class="card-body text-light">
-                                        <h5 class="card-title text-light">lecture Completed</h5>
-                                        <p class="card-text num_of_lecture text-light"></p>
+                                    <div class="card-body text-white">
+                                        <h5 class="card-title text-white">lecture</h5>
+                                        <p class="card-text text-white">Total: <span class="total_lecture">{{ $total_lecture }}</span></p>
+                                        <p class="card-text text-white">Completed: <span class="num_of_lecture"></span></p>
+                                        <p class="card-text text-white">Remained: <span class="remain_lecture"></span></p>
                                     </div>
                                 </div>
                                 <div class="card bg-info text-light">
-                                    <div class="card-body text-light">
-                                        <h5 class="card-title text-light">Obtained Marks</h5>
-                                        <p class="card-text num_of_obtain text-light">0</p>
+                                    <div class="card-body text-white">
+                                        <h5 class="card-title text-white">Obtained Marks</h5>
+                                        <p class="card-text num_of_obtain text-white">0</p>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +102,7 @@
                                             $total_percentage_got += $got_percentage;
                                         @endphp
                                         <td>{{ $got_percentage }}%</td>
-                                        <td><span class="badge bg-{{ $got_percentage >= 50 ? 'success' : 'danger' }}">{{ $got_percentage >= 50 ? 'Passed' : 'Failed' }}</span></td>
+                                        <td><span class="badge bg-{{ $result->status == 1 ? 'success' : 'danger' }} text-white px-2 py-1">{{ $result->status == 1 ? 'Passed' : 'Failed' }}</span></td>
                                     </tr>
                                 @endforeach
                             </tbody>

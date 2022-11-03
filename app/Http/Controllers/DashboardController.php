@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Lecture;
 use App\Models\MCQ;
 use App\Models\Result;
+use App\Models\Chapter;
 use Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +22,9 @@ class DashboardController extends Controller
     {
         return view('user.dashboard',
             [
-                'results' => Result::select('user_id', 'lecture_id', 'mcq_ids', 'total_correct', 'total_wrong')
+                'total_chapter' => Chapter::where('status', 1)->count(),
+                'total_lecture' => Lecture::where('status', 1)->count(),
+                'results' => Result::select('user_id', 'lecture_id', 'mcq_ids', 'total_correct', 'total_wrong', 'status')
                             ->with('lecture')
                             ->where('user_id', Auth::user()->id)->get()
             ]
@@ -105,7 +108,7 @@ class DashboardController extends Controller
     {
         return view('user.pages.counrse-info',
             [
-                'results' => Result::select('user_id', 'lecture_id', 'mcq_ids', 'total_correct', 'total_wrong')
+                'results' => Result::select('user_id', 'lecture_id', 'mcq_ids', 'total_correct', 'total_wrong', 'status')
                             ->with('lecture')
                             ->where('user_id', Auth::user()->id)->get()
             ]

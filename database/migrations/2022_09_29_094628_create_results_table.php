@@ -24,7 +24,7 @@ class CreateResultsTable extends Migration
             $table->longtext('correct_answers');
             $table->integer('total_correct');
             $table->integer('total_wrong');
-            $table->string('status')->default(1);
+            $table->string('status')->default(1); //1->passed 0->failed
             $table->string('slug');
             $table->timestamps();
         });

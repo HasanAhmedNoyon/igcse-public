@@ -55,6 +55,10 @@ class SettingController extends Controller
             $data->email = $request->email;
             $data->phone = $request->phone;
             $data->address = $request->address;
+            $data->facebook_link = $request->facebook_link;
+            $data->twitter_link = $request->twitter_link;
+            $data->instagram_link = $request->instagram_link;
+            $data->passing_percentage = $request->passing_percentage;
             $data->save();
             DB::commit(); //transaction end
 

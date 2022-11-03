@@ -98,6 +98,58 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon5">Facebook Link</span>
+                                            </div>
+                                            <input 
+                                                type="text" 
+                                                class="form-control {{($errors->first('facebook_link') ? "border border-danger" : "")}}" 
+                                                name="facebook_link" value="{{ old('facebook_link') ? old('facebook_link') : $row->facebook_link }}" 
+                                                placeholder="Enter facebook link" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon5">Twitter Link</span>
+                                            </div>
+                                            <input 
+                                                type="text" 
+                                                class="form-control {{($errors->first('twitter_link') ? "border border-danger" : "")}}" 
+                                                name="twitter_link" value="{{ old('twitter_link') ? old('twitter_link') : $row->twitter_link }}" 
+                                                placeholder="Enter twitter link" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon5">Instagram Link</span>
+                                            </div>
+                                            <input 
+                                                type="text" 
+                                                class="form-control {{($errors->first('instagram_link') ? "border border-danger" : "")}}" 
+                                                name="instagram_link" value="{{ old('instagram_link') ? old('instagram_link') : $row->instagram_link }}" 
+                                                placeholder="Enter instagram link" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon5">Passing Mark(%)</span>
+                                            </div>
+                                            <input 
+                                                type="number" 
+                                                class="form-control {{($errors->first('passing_percentage') ? "border border-danger" : "")}}" 
+                                                name="passing_percentage" value="{{ old('passing_percentage') ? old('passing_percentage') : $row->passing_percentage }}" 
+                                                placeholder="Enter passing percentage(%)" >
+                                        </div>
+                                    </div>
+
 
                                     <div class="text-right">
                                         <button type="submit" class="btn btn-primary">

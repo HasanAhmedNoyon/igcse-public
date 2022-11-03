@@ -1,3 +1,6 @@
+@php
+    $system_info = system_info();
+@endphp
 <!--Footer Start-->
 <div class="container-fluid mt-5 footer py-2">
     <div class="container row">
@@ -16,9 +19,9 @@
         </div>
         <div class="col-md-3">
             <ul class="list-group icon-list">
-                <li>Facebook</li>
-                <li>Instagram</li>
-                <li>twitter</li>
+                <li><a href="{{ $system_info->facebook_link }}" target="_blank" >Facebook</a></li>
+                <li><a href="{{ $system_info->twitter_link }}" target="_blank" >Instagram</a></li>
+                <li><a href="{{ $system_info->instagram_link }}" target="_blank" >twitter</a></li>
             </ul>
         </div>
     </div>

@@ -18,14 +18,16 @@
                 <div class="card-deck text-center">
                     <div class="card bg-success text-light">
                         <div class="card-body">
-                            <h5 class="card-title">Chapter Completed</h5>
-                            <p class="card-text num_of_chapter"></p>
+                            <h5 class="card-title">Total Chapter</h5>
+                            <p class="card-text"><span class="total_chapter">{{ $total_chapter }}</span></p>
                         </div>
                     </div>
                     <div class="card bg-primary text-light">
                         <div class="card-body">
-                            <h5 class="card-title">lecture Completed</h5>
-                            <p class="card-text num_of_lecture"></p>
+                            <h5 class="card-title">lecture</h5>
+                            <p class="card-text">Total: <span class="total_lecture">{{ $total_lecture }}</span></p>
+                            <p class="card-text">Completed: <span class="num_of_lecture"></span></p>
+                            <p class="card-text">Remained: <span class="remain_lecture"></span></p>
                         </div>
                     </div>
                     <div class="card bg-info text-light">
@@ -77,7 +79,7 @@
                                         $total_percentage_got += $got_percentage;
                                     @endphp
                                     <td>{{ $got_percentage }}%</td>
-                                    <td><span class="badge bg-{{ $got_percentage >= 50 ? 'success' : 'danger' }} text-white px-2 py-1">{{ $got_percentage >= 50 ? 'Passed' : 'Failed' }}</span></td>
+                                    <td><span class="badge bg-{{ $result->status == 1 ? 'success' : 'danger' }} text-white px-2 py-1">{{ $result->status == 1 ? 'Passed' : 'Failed' }}</span></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -101,7 +103,10 @@
 <script>
     $( document ).ready(function() {
         $('.num_of_chapter').text("{{ count($chapter_array) }}");
+        
         $('.num_of_lecture').text("{{ count($lecture_array) }}");
+        $('.remain_lecture').text(parseInt("{{ $total_lecture }}")-parseInt($('.num_of_lecture').text()));
+
         $('.num_of_obtain').text("{{ $avg_percentage_got }}%");
     });
 </script>
@@ -121,8 +126,6 @@
         "lengthMenu": [5, 10, 20, 50],
         "pageLength": 5
     });
-
-    multiCheck(c3);
 </script>
 <!-- END PAGE LEVEL SCRIPTS -->  
 @endsection

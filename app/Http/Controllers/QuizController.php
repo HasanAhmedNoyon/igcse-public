@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Result;
 use App\Models\MCQ;
 use App\Models\Lecture;
+use App\Models\SystemInfo;
 use Auth;
 use DB;
 
@@ -40,7 +41,10 @@ class QuizController extends Controller
 
             DB::beginTransaction(); //transaction start
     
-            $data = New Result;
+            $data = Result::where('user_id', Auth::user()->id)->where('lecture_id', $id)->first();
+            if (empty($data)) {
+                $data = New Result;
+            }
             $data->user_id = Auth::user()->id;
             $data->lecture_id = $id;
             $data->mcq_ids = implode(', ', $request->mcq_ids);
@@ -48,6 +52,12 @@ class QuizController extends Controller
             $data->correct_answers = implode(', ', $correct_answers);
             $data->total_correct = $total_correct;
             $data->total_wrong = $total_wrong;
+
+            $total_question = $total_correct + $total_wrong;
+            $get_percentage = ($total_correct/$total_question)*100;
+            $system_info_passing_percentage = SystemInfo::select('passing_percentage')->first();
+
+            $data->status = $get_percentage >= $system_info_passing_percentage->passing_percentage ? 1 : 0;
             $data->slug = Lecture::where('id', $id)->first()->slug;
             $data->save();
     
